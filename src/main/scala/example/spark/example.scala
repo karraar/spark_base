@@ -1,6 +1,6 @@
 package example.spark
 
-import example.spark.partition_utils.PartitionUtils
+import example.spark.dataframe.Metrics
 import org.apache.spark.sql.SparkSession
 
 
@@ -13,7 +13,7 @@ object SparkBase extends App {
     spark.sparkContext.setLogLevel("ERROR")
 
     val d = spark.read.json("src/main/resources/iss.json")
-    println("final: " + PartitionUtils.calculateNumPartitionsToUse(d))
+    val dfMetrics = new Metrics(d)
+    println(dfMetrics.toString)
     spark.close()
-
 }
